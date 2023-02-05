@@ -1,21 +1,13 @@
-<script src="https://www.w3school.com.cn/jquery/jquery-1.11.1.min.js">
-function GetRequest() {
-    var url = location.search; //获取url中"?"符后的字串
-    var theRequest = new Object();
-    if (url.indexOf("?") != -1) {
-        var str = url.substr(1);
-        strs = str.split("&");
-        for (var i = 0; i < strs.length; i++) {
-            theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-        }
-    }
-    return theRequest;
-}
-$(document).ready(function () {
-    var Request = new Object();
-    Request = GetRequest();
-    var val= Request["test"];
-    alert(val);
-});
+<form action="01.php" method="get" >
 
-</script>
+  <label for="">status:
+
+      <input type="text" name= "status"></label>
+
+      <br/>
+
+  <label for="">user:
+
+      <input type="text" name= "user"></label>
+
+</form>
