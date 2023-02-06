@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-         <title>haha</title>
+         <title>post</title>
     </head>
 <body>
  
@@ -18,11 +18,15 @@
          var value1 = keyAndValue1[1];
          var key1 = keyAndValue1[0];
          let data = { key0:value0, key1: value1};
-         var content = JSON.stringify(data);
+         $(document).ready(function(){
 
-         var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+         $.getJSON('https://mhc-inc.github.io/post/save.json', function (data) {
+             
+           $("#"+key0).text(value0);
+           $("#"+key1).text(value1);
 
-         saveAs(blob, "./save.json");
+         });
+          });
      } else {
          document.write("{ 'error' : 'status和user有其中一个键不存在' }");
      }
