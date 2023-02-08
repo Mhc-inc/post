@@ -50,6 +50,7 @@
          storage.setItem(string,JSON.stringify(data0));
          document.all[0].innerHTML = JSON.stringify(storage);
      } else {
+         document.writeln(JSON.stringify(localStorage));
          document.write("{ 'error' : 'status和user有其中一个键不存在' }");
      }
  </script>
