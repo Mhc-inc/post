@@ -2,15 +2,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
          <title>post</title>
-         <script src="FileSaver.js"></script>
+         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 <body>
  
  <script language='javascript'>
      var params0 = location.search;
      //判断是否存在status和user
+     
      if(params0.includes("status") && params0.includes("user")) {
-         var params1 = params0.split("&")
+         var params1 = params0.split("&");
          var keyAndValue0 = params1[0].split("?")[1].split("=");
          var value0 = keyAndValue0[1];
          var key0 = keyAndValue0[0];
@@ -18,13 +19,36 @@
          var keyAndValue1 = params1[1].split("=");
          var value1 = keyAndValue1[1];
          var key1 = keyAndValue1[0];
-         let data = { key0:value0, key1: value1};
-         
-         var content = JSON.stringify(data);
-
-        var blob = new Blob([content], {type: "text/plain;charset=utf-8"});
-
-        saveAs(blob, "save.json");
+         let data0 = null;
+         if(key0.includes("user") && key1.includes("status")){
+             data0 = {
+                 user:value0,
+                 status:value1
+             };
+         } else {
+             data0 = {
+                 user:value1,
+                 status:value0
+             };
+         }
+         //document.getElementsByTagName("html")[0].innerHTML = data;
+         /*
+         $.getJSON('https://mhc-inc.github.io/post/save.json', function (data) {
+             data[key0]=value0;
+             data[key1]=value1;
+             document.all[0].innerHTML = JSON.stringify(data);
+         })
+          */
+         var storage = localStorage
+         if (storage.id) {
+             storage.id = Number(storage.id)+1;
+             storage.setItem("id",storage.id);
+         } else {
+             storage.id = 1;
+         }
+         var string = 'data'+storage.id;
+         storage.setItem(string,JSON.stringify(data0));
+         document.all[0].innerHTML = JSON.stringify(storage);
      } else {
          document.write("{ 'error' : 'status和user有其中一个键不存在' }");
      }
