@@ -9,8 +9,16 @@
  <script language='javascript'>
      var params0 = location.search;
      //判断是否存在status和user
-     
-     if(params0.includes("status") && params0.includes("user")) {
+     var storage = localStorage;
+     var request = indexedDB.open('weboard', 1);  // 打开 dbName 数据库
+     request.onerror = function(e){              // 监听连接数据库失败时执行
+         console.log('连接数据库失败');
+     }
+     var db;
+     var value;
+     var store;
+     if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
+         params0 = params0.replace("scope=write","");
          var params1 = params0.split("&");
          var keyAndValue0 = params1[0].split("?")[1].split("=");
          var value0 = keyAndValue0[1];
@@ -23,7 +31,7 @@
          if(key0.includes("user") && key1.includes("status")){
              data0 = {
                  user:value0,
-                 status:value1
+                 status:value1,
              };
          } else {
              data0 = {
@@ -39,19 +47,56 @@
              document.all[0].innerHTML = JSON.stringify(data);
          })
           */
-         var storage = localStorage
          if (storage.id) {
              storage.id = Number(storage.id)+1;
              storage.setItem("id",storage.id);
          } else {
              storage.id = 1;
          }
-         var string = 'data'+storage.id;
-         storage.setItem(string,JSON.stringify(data0));
-         document.all[0].innerHTML = JSON.stringify(storage);
+         request.onupgradeneeded = function(e){
+             db = e.target.result;
+             store = db.createObjectStore('weboard_list', {keyPath: 'userId'});
+             console.log('创建对象仓库成功');
+         }
+         request.onsuccess = function(e){
+             // 监听连接数据库成功时执行
+             db = e.target.result;
+             var transaction = db.transaction("weboard_list", 'readwrite')
+             store = transaction.objectStore('weboard_list');
+             var string = 'data'+storage.id;
+             value = {
+                    'userId': storage.id
+                 }
+             value[string] = data0;
+             var req1 = store.put(value);
+             console.log('连接数据库成功');
+         }
+         //storage.setItem(string,JSON.stringify(data0));
+         //document.all[0].innerHTML = JSON.stringify(storage);
+     } else if (params0.includes("scope=read")){
+         //document.all[0].innerHTML = JSON.stringify(storage);
+         request.onsuccess = function(e){
+             // 监听连接数据库成功时执行
+             db = e.target.result;
+             var transaction = db.transaction("weboard_list", 'readonly')
+             store = transaction.objectStore('weboard_list');
+             var req2 = store.getAll();
+             req2.onsuccess = function(){
+                 console.log(this.result);
+                 document.all[0].innerHTML = JSON.stringify(this.result);
+             }
+             console.log('连接数据库成功');
+         }
+         
+     }else if (params0.includes("scope=remove") && params0.includes("removeItem")){
+         params0.split('removeItem')[1]
+         //document.all[0].innerHTML = JSON.stringify(storage);
      } else {
-         document.writeln(JSON.stringify(localStorage));
-         document.write("{ 'error' : 'status和user有其中一个键不存在' }");
+         if(params0.includes("scope=write")){
+             document.all[0].innerHTML = JSON.stringify({ 'error' : 'status和user有其中一个键不存在' });
+         } else {
+             document.all[0].innerHTML = JSON.stringify({ 'error' : 'scope键不存在或它的值存在错误' });
+         }
      }
  </script>
  
