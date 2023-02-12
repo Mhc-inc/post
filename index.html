@@ -25,6 +25,7 @@
             objectStore.createIndex("status", "status", { unique: false });
          }
      }
+     let data0;
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
          params0 = params0.replace("scope=write","");
          if((params0.includes("&&"))) {
@@ -41,7 +42,6 @@
          var keyAndValue1 = params1[1].split("=");
          var value1 = keyAndValue1[1];
          var key1 = keyAndValue1[0];
-         let data0 = null;
          if(key0.includes("user") && key1.includes("status")){
              data0 = {
                  user:value0,
@@ -78,6 +78,7 @@
                  }
              value[string] = data0;
              var req = store.put(value);
+             $.getJSON('save.json', successCallback)
              console.log('连接数据库成功');
          }
          //storage.setItem(string,JSON.stringify(data0));
@@ -105,6 +106,9 @@
          } else {
              document.all[0].innerHTML = JSON.stringify({ 'error' : 'scope键不存在或它的值存在错误' });
          }
+     }
+     function successCallback(data) {
+         data.WordMeanings.push(data0);
      }
  </script>
  
