@@ -68,6 +68,7 @@
          }
          request.onsuccess = function(e){
              // 监听连接数据库成功时执行
+             store = tx.objectStore('weboard_list');
              var string = 'data'+storage.id;
              value = {
                     'userId': storage.id
@@ -82,6 +83,7 @@
          //document.all[0].innerHTML = JSON.stringify(storage);
          request.onsuccess = function(e){
              // 监听连接数据库成功时执行
+             store = tx.objectStore('weboard_list');
              var req = store.getAll();
              req.onsuccess = function(){
                  document.all[0].innerHTML = this.result
