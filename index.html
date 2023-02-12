@@ -18,7 +18,6 @@
      var value;
      var store;
      var tx;
-     db = event.target.result;
      request.onupgradeneeded = function (event) {
          db = event.target.result;
          if (!db.objectStoreNames.contains('weboard_list')) { //查看表是否存在，不存在就创建
