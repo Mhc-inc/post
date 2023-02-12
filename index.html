@@ -10,19 +10,19 @@
      var params0 = location.search;
      //判断是否存在status和user
      var storage = localStorage;
-     var request = indexedDB.open('weboard', 1);  // 打开 dbName 数据库
+     var request = indexedDB.open('weboard', 2);  // 打开 dbName 数据库
      request.onerror = function(e){              // 监听连接数据库失败时执行
          console.log('连接数据库失败');
      }
-     request.onsuccess = function (event) {
+     request.onupgradeneeded = function(event) {
          var db = event.target.result;
-         // createObjectStore 创建数据库，参数 weboard_list 是创建仓库名称，keyPath：将 "userId" 作为主键，要保证他的唯一性， autoIncrement 是自动递增
-         var objectStore = db.createObjectStore("weboard_list", { keyPath: 'userId', autoIncrement: true });
-         // 创建一个索引来通过 name 进行搜索，unique 表示是否允许数据的重复
-         objectStore.createIndex("user", "user", { unique: false });
-         // 手机是不允许重复的所以启用 unique: true
-         objectStore.createIndex("status", "status", { unique: false });
-     };
+             // createObjectStore 创建数据库，参数 weboard_list 是创建仓库名称，keyPath：将 "userId" 作为主键，要保证他的唯一性， autoIncrement 是自动递增
+             var objectStore = db.createObjectStore("weboard_list", { keyPath: 'userId', autoIncrement: true });
+             // 创建一个索引来通过 name 进行搜索，unique 表示是否允许数据的重复
+            objectStore.createIndex("user", "user", { unique: false });
+            // 手机是不允许重复的所以启用 unique: true
+            objectStore.createIndex("status", "status", { unique: false });
+     }
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
          params0 = params0.replace("scope=write","");
          var params1 = params0.split("&");
