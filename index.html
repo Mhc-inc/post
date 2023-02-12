@@ -29,11 +29,6 @@
              objectStore.createIndex("status", "status", { unique: false });
          }
      };
-     request.onupgradeneeded = function(e){
-             db = e.target.result;
-             store = db.createObjectStore('weboard_list', {keyPath: 'userId'});
-             console.log('创建对象仓库成功');
-     }
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
          params0 = params0.replace("scope=write","");
          var params1 = params0.split("&");
