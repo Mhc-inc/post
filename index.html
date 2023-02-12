@@ -25,6 +25,7 @@
      }
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
          params0 = params0.replace("scope=write","");
+         document.write(params0);
          var params1 = params0.split("&");
          var keyAndValue0 = params1[0].split("?")[1].split("=");
          var value0 = keyAndValue0[1];
@@ -74,6 +75,7 @@
          }
          //storage.setItem(string,JSON.stringify(data0));
          //document.all[0].innerHTML = JSON.stringify(storage);
+         
      } else if (params0.includes("scope=read")){
          //document.all[0].innerHTML = JSON.stringify(storage);
          request.onsuccess = function(e){
