@@ -78,7 +78,10 @@
                  }
              value[string] = data0;
              var req = store.put(value);
-             $.getJSON('save.json', successCallback)
+             function successCallback(data) {
+                data.WordMeanings.push(data0);
+             }
+             $.getJSON('save.json', successCallback);
              console.log('连接数据库成功');
          }
          //storage.setItem(string,JSON.stringify(data0));
@@ -106,9 +109,6 @@
          } else {
              document.all[0].innerHTML = JSON.stringify({ 'error' : 'scope键不存在或它的值存在错误' });
          }
-     }
-     function successCallback(data) {
-         data.WordMeanings.push(data0);
      }
  </script>
  
