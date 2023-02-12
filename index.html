@@ -24,10 +24,11 @@
             objectStore.createIndex("status", "status", { unique: false });
      }
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
-         if((params0.replace("scope=write","").includes("&&"))) {
-             params0 = params0.replace("scope=write","").replace("&&","&");
-         } else if((params0.replace("scope=write","").includes("?&"))) {
-             params0 = params0.replace("scope=write","").replace("?&","?");
+         params0 = params0.replace("scope=write","");
+         if((params0.includes("&&"))) {
+             params0 = params0.replace("&&","&");
+         } else if((params0.includes("?&"))) {
+             params0 = params0.replace("?&","?");
          }
          document.write(params0);
          var params1 = params0.split("&");
