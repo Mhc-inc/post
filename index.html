@@ -61,8 +61,8 @@
          request.onsuccess = function(e){
              // 监听连接数据库成功时执行
              db = e.target.result;
-             var transaction = db.transaction("weboard_list", 'readwrite')
-             store = transaction.objectStore('weboard_list');
+             var tx = db.transaction("weboard_list", 'readwrite')
+             store = tx.objectStore('weboard_list');
              var string = 'data'+storage.id;
              value = {
                     'userId': storage.id
@@ -78,8 +78,8 @@
          request.onsuccess = function(e){
              // 监听连接数据库成功时执行
              db = e.target.result;
-             var transaction = db.transaction("weboard_list", 'readonly')
-             store = transaction.objectStore('weboard_list');
+             var tx = db.transaction("weboard_list", 'readonly')
+             store = tx.objectStore('weboard_list');
              var req2 = store.getAll();
              req2.onsuccess = function(){
                  console.log(this.result);
