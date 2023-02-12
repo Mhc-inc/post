@@ -17,6 +17,12 @@
      var db;
      var value;
      var store;
+     request.onsuccess = function(e){
+             // 监听连接数据库成功时执行
+             db = e.target.result;
+             var tx = db.transaction("weboard_list", 'readwrite')
+             store = tx.objectStore('weboard_list');
+         }
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
          params0 = params0.replace("scope=write","");
          var params1 = params0.split("&");
@@ -60,9 +66,6 @@
          }
          request.onsuccess = function(e){
              // 监听连接数据库成功时执行
-             db = e.target.result;
-             var tx = db.transaction("weboard_list", 'readwrite')
-             store = tx.objectStore('weboard_list');
              var string = 'data'+storage.id;
              value = {
                     'userId': storage.id
@@ -77,7 +80,6 @@
          //document.all[0].innerHTML = JSON.stringify(storage);
          request.onsuccess = function(e){
              // 监听连接数据库成功时执行
-             db = e.target.result;
              var req2 = store.getAll();
              req2.onsuccess = function(){
                  console.log(this.result);
