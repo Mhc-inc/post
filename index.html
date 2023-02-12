@@ -62,7 +62,7 @@
          request.onsuccess = function(e){
              // 监听连接数据库成功时执行
              db = e.target.result;
-             tx = db.transaction("weboard_list", 'readwrite');
+             tx = db.transaction("weboard", 'readwrite');
              store = tx.objectStore('weboard_list');
              var string = 'data'+storage.id;
              value = {
@@ -79,7 +79,7 @@
          request.onsuccess = function(e){
              // 监听连接数据库成功时执行
              db = e.target.result;
-             tx = db.transaction("weboard_list", 'readonly');
+             tx = db.transaction("weboard", 'readonly');
              store = tx.objectStore('weboard_list');
              var req = store.getAll();
              req.onsuccess = function(){
