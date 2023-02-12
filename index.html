@@ -83,7 +83,7 @@
              var store = tx.objectStore('weboard_list');
              var req = store.getAll();
              req.onsuccess = function(){
-                 document.all[0].innerHTML = this.result
+                 document.all[0].innerHTML = JSON.stringify(this.result);
              }
              console.log('连接数据库成功');
          }
