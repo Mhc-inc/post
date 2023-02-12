@@ -10,7 +10,7 @@
      var params0 = location.search;
      //判断是否存在status和user
      var storage = localStorage;
-     var request = indexedDB.open('weboard', 2);  // 打开 dbName 数据库
+     var request = indexedDB.open('weboard', 3);  // 打开 dbName 数据库
      request.onerror = function(e){              // 监听连接数据库失败时执行
          console.log('连接数据库失败');
      }
