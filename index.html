@@ -79,7 +79,7 @@
              value[string] = data0;
              var req = store.put(value);
              function successCallback(data) {
-                data.WordMeanings.push(data0);
+                data[string].push(data0);
              }
              $.getJSON('save.json', successCallback);
              console.log('连接数据库成功');
