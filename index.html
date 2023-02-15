@@ -10,6 +10,7 @@
      var params0 = location.search;
      //判断是否存在status和user
      var storage = localStorage;
+     var objectStore;
      var request = indexedDB.open('weboard', 3);  // 打开 dbName 数据库
      request.onerror = function(e){              // 监听连接数据库失败时执行
          console.log('连接数据库失败');
@@ -18,7 +19,7 @@
          var db = event.target.result;
          if (!db.objectStoreNames.contains('weboard_list')) {
              // createObjectStore 创建数据库，参数 weboard_list 是创建仓库名称，keyPath：将 "userId" 作为主键，要保证他的唯一性， autoIncrement 是自动递增
-             var objectStore = db.createObjectStore("weboard_list", { keyPath: 'userId', autoIncrement: true });
+             objectStore = db.createObjectStore("weboard_list", { keyPath: 'userId', autoIncrement: true });
              // 创建一个索引来通过 name 进行搜索，unique 表示是否允许数据的重复
             objectStore.createIndex("user", "user", { unique: false });
             // 手机是不允许重复的所以启用 unique: true
