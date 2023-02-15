@@ -36,7 +36,7 @@
          } else if((params0.includes("?&"))) {
              params0 = params0.replace("?&","?");
          }
-         document.write(params0);
+         document.all[0].innerHTML = "查询成功";
          var params1 = params0.split("&");
          var keyAndValue0 = params1[0].split("?")[1].split("=");
          var value0 = decodeURI(keyAndValue0[1]) != 'undefined' ? decodeURI(keyAndValue0[1]) : keyAndValue0[1];
