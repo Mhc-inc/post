@@ -36,12 +36,12 @@
          document.write(params0);
          var params1 = params0.split("&");
          var keyAndValue0 = params1[0].split("?")[1].split("=");
-         var value0 = keyAndValue0[1];
-         var key0 = keyAndValue0[0];
+         var value0 = decodeURI(keyAndValue0[1]);
+         var key0 = decodeURI(keyAndValue0[0]);
          
          var keyAndValue1 = params1[1].split("=");
-         var value1 = keyAndValue1[1];
-         var key1 = keyAndValue1[0];
+         var value1 = decodeURI(keyAndValue1[1]);
+         var key1 = decodeURI(keyAndValue1[0]);
          if(key0.includes("user") && key1.includes("status")){
              data0 = {
                  user:value0,
