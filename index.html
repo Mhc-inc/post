@@ -34,7 +34,7 @@
 
     function generateRandom(count){
 
-        var rand = parseInt(Math.random()*count);
+        var rand = Math.random().toString(36).substr(2);
         array.push(rand);
 
      }
