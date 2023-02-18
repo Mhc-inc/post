@@ -110,10 +110,10 @@
              }
              if(array1) {
                  for(var i = 0 ;i<=array1.length; i++){
-                     if(indexedDB.cmp(array1[i],array.join('')) != 0 && i != array1.length){
+                     if(indexedDB.cmp(array1[i]['userId'],array.join('')) != 0 && i != array1.length){
                         continue
                      } else {
-                         while(array.join('') != array1[i]) {
+                         while(array.join('')['userId'] != array1[i]) {
                              for(var i = 0 ; ; i++){
                                 // 只生成10个随机数
                                 if(array.length<10){
