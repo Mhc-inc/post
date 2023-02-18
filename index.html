@@ -106,25 +106,19 @@
                  }
              }
              store.getAll().onsuccess = function(){
-                 array1 = this.result;
+                 array1 = JSON.stringify(this.result);
              }
              if(array1) {
-                 for(var i = 0 ;i<array1.length; i++){
-                     if(indexedDB.cmp(array1[i]['userId'],array.join('')) != 0 && i != array1.length){
-                        continue
-                     } else {
-                         while(array.join('')['userId'] != array1[i]) {
-                             for(var i = 0 ; ; i++){
-                                // 只生成10个随机数
-                                if(array.length<10){
-                                    generateRandom(10);
-                                }else{
-                                    break;
-                                }
+                 while(array1.includes(array.join(''))) {
+                        for(var i = 0 ; ; i++){
+                            // 只生成10个随机数
+                            if(array.length<10){
+                                generateRandom(10);
+                            }else{
+                                break;
                             }
-                         }
-                     }
-                 }
+                        }
+                    }
                  var value = {
                         userId: array.join(''),
                         data: data0
