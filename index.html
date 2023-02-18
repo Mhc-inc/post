@@ -77,9 +77,7 @@
              db = e.target.result;
              tx = db.transaction("weboard_list", 'readwrite');
              store = tx.objectStore('weboard_list');
-             var value = {}
-             value[string] = data0;
-             var req = store.add(value);
+             var req = store.add(data0);
              function successCallback(data) {
                 data.push(data0);
              }
