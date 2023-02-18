@@ -30,33 +30,6 @@
      // 定义存放生成随机数的数组
 
     var array=new Array();
-
-    // 循环N次生成随机数
-
-    for(var i = 0 ; ; i++){
-
-        // 只生成10个随机数
-
-        if(array.length<10){
-
-            generateRandom(10);
-
-        }else{
-
-            break;
-
-        }
-
-    }
-
-    // 循环遍历随机数数组
-
-    for(var i = 0 ; i < array.length; i++){
-
-        alert(array[i]);
-
-    }
-
     // 生成随机数的方法
 
     function generateRandom(count){
@@ -123,12 +96,42 @@
              db = e.target.result;
              tx = db.transaction("weboard_list", 'readwrite');
              store = tx.objectStore('weboard_list');
-             var value = {
-                 userId: array.join(''),
-                 data: data0
+             for(var i = 0 ; ; i++){
+                // 只生成10个随机数
+                 if(array.length<10){
+                     generateRandom(10);
+                 }else{
+                     break;
+                 }
              }
-             var req = store.add(value);
-             console.log('连接数据库成功');
+             var array1;
+             store.getAll().onsuccess = function(){
+                 array1 = JSON.stringify(this.result);
+             }
+             if(array1) {
+                 for(var i = 0 ;i<=array1.length; i++){
+                     if(indexedDB.cmp(array1[i],array.join('')) != 0 && i != array1.length){
+                        continue
+                     } else {
+                         while(array.join('') != array1[i]) {
+                             for(var i = 0 ; ; i++){
+                                // 只生成10个随机数
+                                if(array.length<10){
+                                    generateRandom(10);
+                                }else{
+                                    break;
+                                }
+                            }
+                         }
+                     }
+                 }
+                 var value = {
+                        userId: array.join(''),
+                        data: data0
+                    }
+                 var req = store.add(value);
+             }
+                console.log('连接数据库成功');
          }
          //storage.setItem(string,JSON.stringify(data0));
          //document.all[0].innerHTML = JSON.stringify(storage);
