@@ -116,10 +116,10 @@
              var user;
              var status;
              var data;
-             if(JSON.stringify(this.result).replace('scope=read','').includes('?&')) {
-                 uid = JSON.stringify(this.result).replace('scope=read','').replace('?&uid=','')
+             if(params0.replace('scope=read','').includes('?&')) {
+                 uid = params0.replace('scope=read','').replace('?&uid=','')
              } else {
-                 uid = JSON.stringify(this.result).replace('scope=read','')[0];
+                 uid = params0.replace('scope=read','')[0];
              }
              document.all[0].innerHTML = uid;
              
