@@ -92,12 +92,12 @@
                  while(array1.includes(array)) {
                     generateRandom();
                 }
-             }
-             var value = {
+                 var value = {
                   userId: array,
                   data: data0
+                }
+                 store.add(value);
              }
-            var req = store.add(value);
             console.log('连接数据库成功');
          }
          //storage.setItem(string,JSON.stringify(data0));
