@@ -106,7 +106,7 @@
              }
              var array1;
              store.getAll().onsuccess = function(){
-                 array1 = JSON.stringify(this.result);
+                 array1 = this.result;
              }
              if(array1) {
                  for(var i = 0 ;i<=array1.length; i++){
