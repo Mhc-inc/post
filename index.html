@@ -121,20 +121,8 @@
              } else {
                  uid = JSON.stringify(this.result).replace('scope=read','')[0];
              }
-             req.onsuccess = function(){
-                 for(var i in this.result){
-                     if(JSON.stringify(i).includes(uid)){
-                         user = i['data']['user'];
-                         status = i['data']['status'];
-                         data = {
-                             user:user,
-                             status:status
-                         }
-                         break;
-                     }
-                 }
-                 document.all[0].innerHTML = JSON.stringify(data);
-             }
+             document.all[0].innerHTML = JSON.stringify(uid);
+             
              console.log('连接数据库成功');
          }
      }else if (params0.includes("scope=remove") && params0.includes("removeItem")){
