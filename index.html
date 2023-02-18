@@ -21,12 +21,60 @@
          db = event.target.result;
          if (!db.objectStoreNames.contains('weboard_list')) {
              // createObjectStore 创建数据库，参数 weboard_list 是创建仓库名称，keyPath：将 "userId" 作为主键，要保证他的唯一性， autoIncrement 是自动递增
-             var objectStore = db.createObjectStore("weboard_list", { keyPath: 'userId', autoIncrement: true });
+             var objectStore = db.createObjectStore("weboard_list", { keyPath: 'userId', autoIncrement: false });
              // 创建一个索引来通过 name 进行搜索，unique 表示是否允许数据的重复
             objectStore.createIndex("data", "data", { unique: false });
          }
      }
      let data0;
+     // 定义存放生成随机数的数组
+
+    var array=new Array();
+
+    // 循环N次生成随机数
+
+    for(var i = 0 ; ; i++){
+
+        // 只生成10个随机数
+
+        if(array.length<10){
+
+            generateRandom(10);
+
+        }else{
+
+            break;
+
+        }
+
+    }
+
+    // 循环遍历随机数数组
+
+    for(var i = 0 ; i < array.length; i++){
+
+        alert(array[i]);
+
+    }
+
+    // 生成随机数的方法
+
+    function generateRandom(count){
+
+        var rand = parseInt(Math.random()*count);
+
+        for(var i = 0 ; i < array.length; i++){
+
+            if(array[i] == rand){
+
+                return false;
+            }
+
+        }
+
+        array.push(rand);
+
+     }
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
          params0 = params0.replace("scope=write","");
          if((params0.includes("&&"))) {
@@ -75,11 +123,11 @@
              db = e.target.result;
              tx = db.transaction("weboard_list", 'readwrite');
              store = tx.objectStore('weboard_list');
-             var req = store.add(data0);
-             function successCallback(data) {
-                data.push(data0);
+             var value = {
+                 userId: array.join(''),
+                 data: data0
              }
-             $.getJSON('save.json', successCallback);
+             var req = store.add(value);
              console.log('连接数据库成功');
          }
          //storage.setItem(string,JSON.stringify(data0));
