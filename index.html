@@ -108,24 +108,22 @@
              store.getAll().onsuccess = function(){
                  array1 = JSON.stringify(this.result);
              }
-             if(array1) {
-                 while(array1.includes(array.join(''))) {
-                        for(var i = 0 ; ; i++){
+             while(array1.includes(array.join(''))) {
+                  for(var i = 0 ; ; i++){
                             // 只生成10个随机数
-                            if(array.length<10){
-                                generateRandom(10);
-                            }else{
-                                break;
-                            }
+                        if(array.length<10){
+                            generateRandom(10);
+                        }else{
+                            break;
                         }
-                    }
-                 var value = {
-                        userId: array.join(''),
-                        data: data0
-                    }
-                 var req = store.add(value);
+                  }
              }
-                console.log('连接数据库成功');
+             var value = {
+                  userId: array.join(''),
+                  data: data0
+             }
+            var req = store.add(value);
+            console.log('连接数据库成功');
          }
          //storage.setItem(string,JSON.stringify(data0));
          //document.all[0].innerHTML = JSON.stringify(storage);
