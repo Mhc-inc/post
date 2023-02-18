@@ -111,7 +111,6 @@
              db = e.target.result;
              tx = db.transaction("weboard_list", 'readonly');
              store = tx.objectStore('weboard_list');
-             var req = store.getAll();
              var uid;
              var user;
              var status;
@@ -121,7 +120,10 @@
              } else {
                  uid = params0.replace('scope=read','')[0];
              }
-             document.all[0].innerHTML = uid;
+             var req = store.get(uid);
+             req.onsuccess = function(){
+                 document.all[0].innerHTML = this.result;
+             }
              
              console.log('连接数据库成功');
          }
