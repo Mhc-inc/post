@@ -48,6 +48,7 @@
         array.push(rand);
 
      }
+     var array1;
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
          params0 = params0.replace("scope=write","");
          if((params0.includes("&&"))) {
@@ -104,7 +105,6 @@
                      break;
                  }
              }
-             var array1;
              store.getAll().onsuccess = function(){
                  array1 = this.result;
              }
