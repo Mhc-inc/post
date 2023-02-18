@@ -122,7 +122,7 @@
                  uid = JSON.stringify(this.result).replace('scope=read','')[0];
              }
              req.onsuccess = function(){
-                 for i in this.result {
+                 for(i:this.result){
                      if(JSON.stringify(i).includes(uid)){
                          user = i['data']['user'];
                          status = i['data']['status'];
