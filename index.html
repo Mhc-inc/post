@@ -122,7 +122,7 @@
              }
              var req = store.get(uid);
              req.onsuccess = function(){
-                 document.all[0].innerHTML = this.result;
+                 document.all[0].innerHTML = JSON.stringify(this.result);
              }
              
              console.log('连接数据库成功');
