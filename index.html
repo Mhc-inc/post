@@ -29,14 +29,13 @@
      let data0;
      // 定义存放生成随机数的数组
 
-    var array=new Array();
+    var array=new String();
     // 生成随机数的方法
 
-    function generateRandom(count){
+    function generateRandom(){
 
         var rand = Math.random().toString(36).substr(2);
-        array.push(rand);
-
+        array = rand
      }
      var array1;
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
@@ -87,25 +86,11 @@
              db = e.target.result;
              tx = db.transaction("weboard_list", 'readwrite');
              store = tx.objectStore('weboard_list');
-             for(var i = 0 ; ; i++){
-                // 只生成10个随机数
-                 if(array.length<10){
-                     generateRandom(10);
-                 }else{
-                     break;
-                 }
-             }
              store.getAll().onsuccess = function(){
                  array1 = JSON.stringify(this.result);
-                 while(array1.includes(array.join(''))) {
-                    for(var i = 0 ; ; i++){
-                            // 只生成10个随机数
-                            if(array.length<10){
-                                generateRandom(10);
-                            }else{
-                                break;
-                            }
-                    }
+                 generateRandom();
+                 while(array1.includes(array)) {
+                    generateRandom();
                 }
              }
              var value = {
