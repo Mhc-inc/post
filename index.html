@@ -23,9 +23,7 @@
              // createObjectStore 创建数据库，参数 weboard_list 是创建仓库名称，keyPath：将 "userId" 作为主键，要保证他的唯一性， autoIncrement 是自动递增
              var objectStore = db.createObjectStore("weboard_list", { keyPath: 'userId', autoIncrement: true });
              // 创建一个索引来通过 name 进行搜索，unique 表示是否允许数据的重复
-            objectStore.createIndex("user", "user", { unique: false });
-            // 手机是不允许重复的所以启用 unique: true
-            objectStore.createIndex("status", "status", { unique: false });
+            objectStore.createIndex("data", "data", { unique: false });
          }
      }
      let data0;
