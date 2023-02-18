@@ -29,13 +29,13 @@
      let data0;
      // 定义存放生成随机数的数组
 
-    var array=new String();
+    var uid=new String();
     // 生成随机数的方法
 
     function generateRandom(){
 
         var rand = Math.random().toString(36).substr(2);
-        array = rand
+        uid = rand
      }
      var array1;
      if(params0.includes("scope=write") && params0.includes("status") && params0.includes("user") && !params0.includes("removeItem")) {
@@ -89,21 +89,22 @@
              store.getAll().onsuccess = function(){
                  array1 = JSON.stringify(this.result);
                  generateRandom();
-                 while(array1.includes(array)) {
+                 while(array1.includes(uid)) {
                     generateRandom();
                 }
                  var value = {
-                  userId: array,
+                  userId: uid,
                   data: data0
-                }
+                };
                  store.add(value);
+                 document.all[0].innerHTML = uid;
              }
             console.log('连接数据库成功');
          }
          //storage.setItem(string,JSON.stringify(data0));
          //document.all[0].innerHTML = JSON.stringify(storage);
          
-     } else if (params0.includes("scope=read") && !params0.includes("status") && !params0.includes("user") && !params0.includes("removeItem")){
+     } else if (params0.includes("scope=read") && params0.includes("uid=") && !params0.includes("status") && !params0.includes("user") && !params0.includes("removeItem")){
          //document.all[0].innerHTML = JSON.stringify(storage);
          request.onsuccess = function(e){
              // 监听连接数据库成功时执行
@@ -111,8 +112,28 @@
              tx = db.transaction("weboard_list", 'readonly');
              store = tx.objectStore('weboard_list');
              var req = store.getAll();
+             var uid;
+             var user;
+             var status;
+             var data;
+             if(JSON.stringify(this.result).replace('scope=read','').includes('?&')) {
+                 uid = JSON.stringify(this.result).replace('scope=read','').replace('?&uid=','')
+             } else {
+                 uid = JSON.stringify(this.result).replace('scope=read','')[0];
+             }
              req.onsuccess = function(){
-                 document.all[0].innerHTML = JSON.stringify(this.result);
+                 for i in this.result {
+                     if(JSON.stringify(i).includes(uid)){
+                         user = i['data']['user'];
+                         status = i['data']['status'];
+                         data = {
+                             user:user,
+                             status:status
+                         }
+                         break;
+                     }
+                 }
+                 document.all[0].innerHTML = JSON.stringify(data);
              }
              console.log('连接数据库成功');
          }
